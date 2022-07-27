@@ -1,0 +1,21 @@
+body {
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    margin-top: 222px;
+    background-color: #fff;
+  }
+
+form {
+    width: 900px;
+    margin-top: 50px; 
+    margin-left: 50px;
+}
+#boton {
+    margin-left: 70px;
+}
+
+#botones {
+    margin-top: 40px;
+    margin-left: 500px;
+}
