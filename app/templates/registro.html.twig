@@ -7,14 +7,14 @@
 
     <h1 class="h3 mb-3 font-weight-normal">Alta de usuarios</h1>
     <div>
-        <label for="inputUsername">Nombre:</label>
+        <label for="inputUsername">Nombr:</label>
         <input type="text" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
     </div>
 
     <div>
         <label for="inputPassword">Contraseña:</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-    </div>
+    </div> 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
