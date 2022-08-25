@@ -1,0 +1,41 @@
+
+             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                   <a class="navbar-brand" href="#">Página principal</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                   </button>
+                   <div class="collapse navbar-collapse" id="navbarNav">
+                      <ul class="navbar-nav">
+                             {% if app.user %}
+                                     <li class="nav-item">
+                                          <a class="nav-link active" aria-current="page" href="#"></a>
+                                     </li>
+                                     <li class="nav-item">
+                                          <a class="nav-link active" aria-current="page" href="#">Mi cuenta</a>
+                                     </li>
+                                     <li class="nav-item">
+                                          <a class="nav-link active" aria-current="page" href="{{path('logged')}}">Autorizados</a>
+                                     </li>
+                                     <li class="nav-item">
+                                              <a class="nav-link active" aria-current="page" href="{{path('app_logout')}}">Salir</a
+                                     </li>
+                             {% else %}    
+                                     <li class="nav-item">
+                                         <a class="nav-link active" aria-current="page" href="{{path('app_login')}}">Acceder</a>
+                                     </li>
+                                     <li class="nav-item">
+                                          <a class="nav-link active" aria-current="page" href="{{path('signUp')}}">Crear usuario</a>
+                                    </li>  
+                             {% endif %}                           
+                      </ul>
+                  </div>
+               </div>
+             </nav>
+            
+      {% if app.user %}
+       <div style="margin-top: 30px; margin-left: 30px">
+                     Bienvenido {{app.user.username}}
+        </div>
+     {% endif %}
+
