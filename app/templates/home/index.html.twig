@@ -3,5 +3,19 @@
 {% block title %}Página principal{% endblock %}
 
 {% block body %}
- {{include('home/menu.html.twig')}}
+ <div id="alertsApp">
+ {% for message in app.flashes('info') %}
+      <div class="alert alert-success">
+          <p>{{message}}</p>
+      </div>
+{% endfor %}
+ {% for message in app.flashes('error') %}
+      <div class="alert alert-danger">
+          <p>{{message}}</p>
+      </div>
+{% endfor %}
+</div>
+ <p style="margin-top: 60px; margin-left:60px">
+ Esta es la Página principal de la web
+ </p>
 {% endblock %}

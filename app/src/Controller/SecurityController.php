@@ -19,22 +19,61 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 class SecurityController extends AbstractController
 {
+    
     /**
-     * @Route("/login", name="app_login")
+     * @Route("/login", name="login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function renderCreateUser(AuthenticationUtils $authenticationUtils)
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
 
-        // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+       
+        return $this->render("security/login.html.twig", ['last_username' => $lastUsername, 'error' => $error]);
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
     }
+    
+     /**
+     * @Route("/login/completed", name="logincomplete")
+     */   
+
+     public function userLogin(EntityManagerInterface $entityManager, Request $request, EntityManagerInterface $doctrine, UserPasswordEncoderInterface $passwordEncoder)
+     {
+        $alumnos = $entityManager
+                     ->getRepository(Alumno::class)
+                     ->findAll();
+
+
+        $nombre = $request->get("username");
+
+        $exist = true;
+
+               foreach($alumnos as $alumnosearch )
+               {
+                     if( $alumnosearch->getUserName()==$nombre)
+                     {
+                         $nuevo = false;  
+                     }   
+               }    
+                    
+        if($exist==true)
+        {
+            
+
+
+        }else{
+                      $login = $this->addFlash(
+                         'error',
+                         'El nombre de usuario no se encuentra en nuestra base de datos'
+                      );
+           
+                     return $this->render('home/index.html.twig');
+        } 
+        
+    } 
+   
 
     /**
      * @Route("/logout", name="app_logout")
@@ -45,42 +84,59 @@ class SecurityController extends AbstractController
     }
    
     /**
-     * @Route("/signUp", name="signUp")
+     * @Route("/registro", name="registro")
      */
-    public function renderLoginPage()
+    public function renderCreateUserPage(AuthenticationUtils $authenticationUtils)
     {
-        return $this->render("registro.html.twig");
+
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+       
+        return $this->render("registro.html.twig", ['last_username' => $lastUsername, 'error' => $error]);
+
+
     }
     
      /**
-     * @Route("/registro/completed", name="registro")
+     * @Route("/registro/completed", name="registrocomplete")
      */   
 
-     public function CreateNewUser(Request $request, EntityManagerInterface $doctrine, UserPasswordEncoderInterface $passwordEncoder)
+     public function createUser(EntityManagerInterface $entityManager, Request $request, EntityManagerInterface $doctrine, UserPasswordEncoderInterface $passwordEncoder)
      {
+        $alumnos = $entityManager
+                     ->getRepository(Alumno::class)
+                     ->findAll();
+
         $alumno = new Alumno();
         $alumno -> setUsername($request->get("username"));
+        $alumno -> setSurname($request->get("surname"));
         $alumno -> setPassword($passwordEncoder -> encodePassword($alumno, $request -> get("password")));
+        $alumno -> setAge($request->get("age"));
 
-        $doctrine -> persist($alumno);
-        $doctrine -> flush();
+        $nombre = $request->get("username");
 
-        return $this -> render("home/index.html.twig");
-     }
+        $nuevo = true;
 
-    /**
-     * @Route("/logged", name="logged")
-     */   
-    public function accessLogged()
-    {
-        return $this -> render("authorizated.html.twig");
-    }
-
-    /**
-     * @Route("/profile/auth", name="auth")
-    */   
-    public function renderAuth()
-    {
-        return $this -> render("authorizated.html.twig");
-    }
+               foreach($alumnos as $alumnosearch )
+               {
+                     if( $alumnosearch->getUserName()==$nombre)
+                     {
+                         $nuevo = false;  
+                     }   
+               }    
+                    
+        if($nuevo==true)
+        {
+         
+         }else{
+                      $login = $this->addFlash(
+                         'error',
+                         'El nombre de usuario no se encuentra en la base de datos'
+                      );
+           
+                     
+        } 
+        return $this->render('home/index.html.twig');
+    } 
 }

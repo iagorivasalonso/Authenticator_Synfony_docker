@@ -2,13 +2,12 @@ body {
     font-weight: 400;
     line-height: 1.5;
     color: #212529;
-    margin-top: 222px;
     background-color: #fff;
   }
 
 form {
     width: 900px;
-    margin-top: 50px; 
+    margin-top: 100px;
     margin-left: 50px;
 }
 #boton {
@@ -19,3 +18,21 @@ form {
     margin-top: 40px;
     margin-left: 718px;
 }
+#requiredCamp {
+    font-size: 11px;
+    color: #FF0000;
+}
+
+
+#campForm {
+    margin-top: 12px;
+}
+#alertsApp  {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    margin-left: 50px;
+    margin-right: 630px;
+}
+
+
+

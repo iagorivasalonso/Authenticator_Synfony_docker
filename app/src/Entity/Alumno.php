@@ -24,6 +24,12 @@ class Alumno implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $username;
 
+    
+    /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $surname;
+
     /**
      * @ORM\Column(type="json")
      */
@@ -35,11 +41,23 @@ class Alumno implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $password;
 
+     /**  
+     * @ORM\Column(type="integer")
+     */
+    private $age;
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
@@ -51,6 +69,21 @@ class Alumno implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+        /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getSurname(): string
+    {
+        return (string) $this->surname;
+    }
+
+    public function setSurname(string $surname): self
+    {
+        $this->surname = $surname;
 
         return $this;
     }
@@ -95,6 +128,18 @@ class Alumno implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(?int $age): self
+    {
+        $this->age = $age;
 
         return $this;
     }

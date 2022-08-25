@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}usuarios Autorizados
+{% endblock %}
+{% block body %}
+<div id="alertsApp">
+{% for message in app.flashes('info') %}
+      <div class="alert alert-success">
+          <p>{{message}}</p>
+      </div>
+{% endfor %}
+</div>
+	{% for alumno in alumnos %}
+	  {% if app.user == alumno %}
+		<form action="{{ path('editcomplete') }}" method="post">
+			<div id="campForm">
+				<p>Nombre:</p>
+				<input class="form-control" value="{{alumno.username}}" type="text" name="username"/>
+			</div>
+			<div id="campForm">
+				<p>Apellidos:</p>
+				<input class="form-control" value="{{alumno.surname}}" type="text" name="surname"/>
+			</div>
+			<div id="campForm">
+				<p>Edad:</p>
+				<input class="form-control" type="text" value="{{alumno.age}}" name="age"/>
+			</div>
+		     <div id="botones">
+                 <button id="boton" class="btn btn-lg btn-primary" type="submit" onClick="{{path("home")}}" style="margin-top:10px">Actualizar</button>
+              </div> 
+           
+		</form>
+	{% endif %}
+   {% endfor %}
+{% endblock %}

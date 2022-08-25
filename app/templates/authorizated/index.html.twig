@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}usuarios Autorizados
+{% endblock %}
+
+{% block body %}
+   {{include('home/menu.html.twig')}}
+   {% for alumno in alumnos %}
+     {% if app.user ==alumno%}
+      <div style="margin-top: 100px; margin-left: 200px; margin-right: 800px">
+		<table class="table table-sucess">
+               <tr>
+                    <th>Nombre:</th>
+                    <td>{{alumno.username}}</td>
+               </tr>
+               <tr>
+                    <th>Apellidos:</th>
+                    <td>{{alumno.surname}}</td>
+               </tr>
+               <tr>
+                    <th>Edad</th>
+                    <td>{{alumno.age}}</td>
+               </tr>
+               <tr>
+                    <th>Roles</th>
+                    <td>---------------</td>
+               </tr>              
+        </table>
+       </div> 
+      <div id="botones">
+                        <a 
+                             class="btn btn-lg btn-primary"
+                             href="{{ path('deletecomplete',{'id':alumno.id}) }}"
+                         >
+                              Eliminar
+                        </a>
+     </div>  
+	{% endif %}
+    {% endfor %}
+{% endblock %}
