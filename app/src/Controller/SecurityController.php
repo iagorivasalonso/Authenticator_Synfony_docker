@@ -47,21 +47,36 @@ class SecurityController extends AbstractController
 
 
         $nombre = $request->get("username");
-
-        $exist = true;
+        $myPass = " ";
+        $exist = false;
+        $passwordUser =" ";
+        $myPass = $request -> get("password");
+        $myPassEncode =" ";
 
                foreach($alumnos as $alumnosearch )
                {
                      if( $alumnosearch->getUserName()==$nombre)
                      {
-                         $nuevo = false;  
+                         $exist = true;  
+                         $passwordUser = $alumnosearch->getPassword(); 
+                         $myPass = $passwordEncoder -> encodePassword($alumnosearch, $myPassEncode);
+                                 
                      }   
                }    
-                    
+          
+              
+
         if($exist==true)
         {
-            
-
+         
+            if($passwordUser != $myPass)
+            {
+                $login = $this->addFlash(
+                    'error',
+                    'La contraseña del usuario no es correcta'
+                 );  
+            }
+        
 
         }else{
                       $login = $this->addFlash(
@@ -69,9 +84,9 @@ class SecurityController extends AbstractController
                          'El nombre de usuario no se encuentra en nuestra base de datos'
                       );
            
-                     return $this->render('home/index.html.twig');
+                     
         } 
-        
+     return $this->render('home/index.html.twig');   
     } 
    
 
@@ -129,7 +144,7 @@ class SecurityController extends AbstractController
         if($nuevo==true)
         {
          
-         }else{
+        }else{
                       $login = $this->addFlash(
                          'error',
                          'El nombre de usuario no se encuentra en la base de datos'
