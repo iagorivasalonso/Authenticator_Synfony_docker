@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Acceso de usuarios{% endblock %}
@@ -23,19 +24,10 @@
           <div id="requiredCamp"><div id="requiredCampName"></div></div>
       </div>
       <div id="campForm">
-        <label for="inputSurname">Apellidos:</label>
-        <input type="text" name="surname" id="inputSurname" class="form-control" autocomplete="surname">
-      </div>
-      <div id="campForm">
         <label for="inputPassword">Contraseña:</label>
         <input type="password" name="password" id="inputPassword1" class="form-control" autocomplete="password" required>
         <div id="requiredCamp"><div id="requiredCampPassword"></div></div>
       </div>
-      <div id="campForm">
-          <label for="inputUsername">Edad:</label>
-          <input type="text" name="age" id="inputAge1" class="form-control" autocomplete="age" required>
-          <div id="requiredCamp"><div id="requiredCampAge"></div></div>
-      </div> 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
@@ -52,7 +44,7 @@
     #}
 
    <div id="botones">
-     <button id="boton" class="btn btn-lg btn-primary" type="submit" onClick="valida();">Nuevo</button>
+     <button id="boton" class="btn btn-lg btn-primary" type="submit" onClick="valida();" >Nuevo</button>
    </div>
 </form>
 {% endblock %}
