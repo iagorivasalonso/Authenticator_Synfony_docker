@@ -9,6 +9,11 @@
           <p>{{message}}</p>
       </div>
 {% endfor %}
+ {% for message in app.flashes('error') %}
+      <div class="alert alert-danger">
+          <p>{{message}}</p>
+      </div>
+{% endfor %}
 </div>
 	{% for alumno in alumnos %}
 	  {% if app.user == alumno %}
