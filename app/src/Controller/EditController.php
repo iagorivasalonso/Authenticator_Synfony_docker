@@ -45,6 +45,8 @@ class EditController extends AbstractController
         
         $nombre =$request->get("username");
         
+        $comprobAge =$request->get("age");
+
 
         foreach($alumnos as $alumno )
         {
@@ -53,19 +55,29 @@ class EditController extends AbstractController
             {
                 $alumno ->setUsername($request->get("username"));
                 $alumno ->setSurname($request->get("surname"));
-                $alumno ->setAge($request->get("age"));
+               
+                     if(intVal($comprobAge))
+                     {
+                          $alumno ->setAge($request->get("age"));
+                          $doctrine -> persist($alumno);
+                          $doctrine -> flush();
+
+                          $this->addFlash(
+                                   'info',
+                                   'El usuario ha sido editado correctamente'
+                                     );
+
+                     }else{
+                       
+                           $this->addFlash(
+                                'error',
+                                'Uno de los campos es erroneo'
+                                 );  
+                      }
             }
                 
         }
-       
-        $doctrine -> persist($alumno);
-        $doctrine -> flush();
 
-       $this->addFlash(
-            'info',
-            'El usuario ha sido editado correctamente'
-       );
- 
         return $this->render('edit/index.html.twig', [
             'controller_name' => 'EditController',
             'alumnos' => $alumnos,
