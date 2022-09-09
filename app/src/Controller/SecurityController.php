@@ -123,11 +123,21 @@ class SecurityController extends AbstractController
                      ->getRepository(Alumno::class)
                      ->findAll();
 
-        $alumno = new Alumno();
+     $alumno = new Alumno();
         $alumno -> setUsername($request->get("username"));
         $alumno -> setSurname($request->get("surname"));
         $alumno -> setPassword($passwordEncoder -> encodePassword($alumno, $request -> get("password")));
-        $alumno -> setAge($request->get("age"));
+        $comprobAge =$request->get("age");
+
+           if(intVal($comprobAge))
+           {
+              $alumno ->setAge($request->get("age"));
+
+           }else{
+
+              $alumno ->setAge(0);
+
+           }
 
         $nombre = $request->get("username");
 
@@ -141,17 +151,24 @@ class SecurityController extends AbstractController
                      }   
                }    
                     
-        if($nuevo==true)
-        {
-         
-        }else{
-                      $login = $this->addFlash(
-                         'error',
-                         'El nombre de usuario no se encuentra en la base de datos'
+         if($nuevo==true)
+         {
+                  $doctrine->persist($alumno);
+                  $doctrine->flush();
+
+                  $login = $this->addFlash(
+                         'info',
+                         'El usuario ha sido creado correctamente'
                       );
            
-                     
-        } 
+
+         }else{
+                      $login = $this->addFlash(
+                         'error',
+                         'El nombre de usuario ya existe en nuestra base de datos'
+                      );
+           
+         } 
         return $this->render('home/index.html.twig');
     } 
 }
